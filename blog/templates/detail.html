@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Post detail</title>
+  </head>
+  <body>
+    {%if post %}
+    {%if post.pub_date%}
+
+    <div class="">
+      {{post.pub_date}}
+    </div>
+    {%endif%}
+      <div class="">
+
+        <h1>{{post.title}}</h1>
+        <p> {{post.text|linebreaksbr}}</p>
+      </div>
+    {%endif%}
+  </body>
+</html>

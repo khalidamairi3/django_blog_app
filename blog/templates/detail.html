@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+
 {% extends 'base.html'%}
 {% block content %}
     {%if post %}
     {%if post.pub_date%}
 
-    <div class="">
+    <div class="date">
       {{post.pub_date}}
     </div>
     {%endif%}
-      <div class="">
+      <div class="post">
 
         <h1>{{post.title}}</h1>
         <p> {{post.text|linebreaksbr}}</p>

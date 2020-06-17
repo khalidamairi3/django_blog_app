@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Post detail</title>
-  </head>
-  <body>
+{% extends 'base.html'%}
+{% block content %}
     {%if post %}
     {%if post.pub_date%}
 
@@ -18,5 +14,4 @@
         <p> {{post.text|linebreaksbr}}</p>
       </div>
     {%endif%}
-  </body>
-</html>
+{%endblock%}

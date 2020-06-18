@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Post
 from django.utils import timezone
+from .forms import PostForm
 
 def postlist(request):
     posts=Post.objects.filter(pub_date__lte=timezone.now()).order_by("pub_date")
@@ -15,6 +16,19 @@ def detail(request,post_id):
     return render(request,"detail.html",front_end_stuff)
 
 
+def createpost(request):
+    if request.method=='POST':
+        form=PostForm(request.POST)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.author=request.user
+            post.pub_date=timezone.now()
+            post.save()
+            return redirect('detail',post_id=post.pk)
+    else:
+        form =PostForm()
+        front_end_stuff={'form':form}
+    return render(request,"post-edit.html",front_end_stuff)
 
 
 

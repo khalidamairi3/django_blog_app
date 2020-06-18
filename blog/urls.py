@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import postlist,detail
+from . import views
 
 urlpatterns=[
-    path("",postlist,name="postlist"),
-    path("post/<int:post_id>",detail,name="detail")
+    path("",views.postlist,name="postlist"),
+    path("post/<int:post_id>",views.detail,name="detail"),
+    path("create/",views.createpost,name="createpost"),
 ]

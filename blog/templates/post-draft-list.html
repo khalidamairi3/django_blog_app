@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% block content %}
+      {%if posts %}
+          {% for post in posts %}
+          <div class="row">
+            <div class="col-md-8 post">
+              <p class="date"> craeted : {{ post.created_date}}</p>
+              <h1> <a href="{% url 'detail' post.id %}">{{post.title}}</a></h1>
+              <p>{{post.text}}</p>
+            </div>
+
+          </div>
+          {% endfor %}
+      {% endif %}
+
+{% endblock %}

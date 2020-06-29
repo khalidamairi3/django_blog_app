@@ -4,7 +4,7 @@ from django.utils import timezone
 from .forms import PostForm
 
 def postlist(request):
-    posts=Post.objects.filter(pub_date__lte=timezone.now()).order_by("pub_date")
+    posts=Post.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
     front_end_stuff={"posts":posts}
     return render(request,"index.html",front_end_stuff)
 def detail(request,post_id):
@@ -44,6 +44,16 @@ def edit(request,post_id):
         form =PostForm(instance=post)
         front_end_stuff={'form':form}
     return render(request,"post-edit.html",front_end_stuff)
+
+def post_draft_list(request):
+    posts=Post.objects.filter(pub_date__isnull=True).order_by('-created_date')
+    front_end_stuff={"posts":posts}
+    return render(request,"post-draft-list.html",front_end_stuff)
+
+def publish_post(request,pk):
+    post=get_object_or_404(Post,pk=pk)
+    post.publish()
+    return redirect('postlist')
 
 
 

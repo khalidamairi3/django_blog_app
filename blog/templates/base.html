@@ -2,15 +2,20 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <script src="https://kit.fontawesome.com/88a99932ad.js" crossorigin="anonymous"></script>   
+     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
     <meta charset="utf-8">
     <title>My blog</title>
   </head>
   <body>
     <div class="page-header">
+     {% if user.is_authenticated %}
+       <a class="top-right" href=" {% url 'createpost' %}">  <i class="fas fa-plus"></i> </a>
+       <a class="top-right" href=" {% url 'post-draft-list' %}">  <i class="fab fa-firstdraft"></i> </a>
+      {% endif %}
       <h1><a href="{% url 'postlist' %}"> My Blog</a></h1>
     </div>
     <div class="content container">

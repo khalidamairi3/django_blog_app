@@ -15,6 +15,11 @@
      {% if user.is_authenticated %}
        <a class="top-right" href=" {% url 'createpost' %}">  <i class="fas fa-plus"></i> </a>
        <a class="top-right" href=" {% url 'post-draft-list' %}">  <i class="fab fa-firstdraft"></i> </a>
+       <p class="top-right">Hello, {{ user.username }} <a  href=" {% url 'logout' %}"> (Logout) </a></p>
+       {% else %}
+       <a class="top-right" href=" {% url 'login' %}">  <i class="fas fa-sign-in-alt"></i> </a> 
+
+
       {% endif %}
       <h1><a href="{% url 'postlist' %}"> My Blog</a></h1>
     </div>

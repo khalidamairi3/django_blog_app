@@ -7,7 +7,7 @@
             <div class="col-md-8 post">
               <p class="date"> published : {{ post.pub_date}}</p>
               <h1> <a href="{% url 'detail' post.id %}">{{post.title}}</a></h1>
-              <p>{{post.text}}</p>
+              <p>{{post.text|truncatechars:50}}</p>
             </div>
 
           </div>

@@ -75,7 +75,7 @@ def add_comment(request,pk):
         form =CommmentForm()
         front_end_stuff={'form':form}
     return render(request,"add_comment.html",front_end_stuff)
-
+@login_required
 def comment_remove(request,pk):
     comment=get_object_or_404(Comment,pk=pk)
     comment.delete()

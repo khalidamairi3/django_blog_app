@@ -1,5 +1,6 @@
 
 {% extends 'base.html'%}
+{% load markdownify %}
 {% block content %}
     {%if post %}
        {%if post.pub_date%}
@@ -20,7 +21,7 @@
         <div class="post">
 
           <h1>{{post.title}}</h1>
-          <p> {{post.text|linebreaksbr}}</p>
+          <p> {{post.text| markdown | safe}}</p>
           {% if user.is_authenticated %}
           <button class="btn btn-secondary"> <a href="{% url 'add_comment' pk=post.id %}">Add Comment </a></button>
           {% endif %}
@@ -34,7 +35,7 @@
               <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash-alt"></i></a>
               {% endif %}
               <strong>{{comment.author}}</strong>
-              <p>{{comment.text|truncatechars:50}}</p>
+              <p>{{comment.text| markdown | safe}}</p>
 
               </div>
               {% endif %}

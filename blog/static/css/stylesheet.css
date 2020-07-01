@@ -51,6 +51,7 @@ h1,h2,h3,h4 a{
   color: #87857f;
 }
 .post{
+  width: 80%;
   margin-bottom: 70px;
 }
 .post h1 a{

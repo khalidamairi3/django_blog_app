@@ -21,6 +21,20 @@
 
           <h1>{{post.title}}</h1>
           <p> {{post.text|linebreaksbr}}</p>
+          <button class="btn btn-secondary"> <a href="{% url 'add_comment' pk=post.id %}">Add Comment </a></button>
+          {% for comment in post.comments.all %}
+            <div class="comment"></div>
+              <p class="date"> {{ comment.created_date}}</p>
+              <strong>{{comment.author}}</strong>
+              <p>{{comment.text|truncatechars:50}}</p>
+
+              </div>
+
+              {% empty %}
+              <p>No comments </p>
+
+
+            {% endfor %}
 
         </div>
     {%endif%}

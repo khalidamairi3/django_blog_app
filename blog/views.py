@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Post
 from django.utils import timezone
-from .forms import PostForm
+from .forms import PostForm,CommmentForm
 from django.contrib.auth.decorators import login_required
 def postlist(request):
     posts=Post.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
@@ -52,6 +52,21 @@ def publish_post(request,pk):
     post=get_object_or_404(Post,pk=pk)
     post.publish()
     return redirect('postlist')
+@login_required
+def add_comment(request,pk):
+    post=get_object_or_404(Post,pk=pk)
+    if request.method=='POST':
+        form=CommmentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.author=request.user
+            comment.post=post
+            comment.save()
+            return redirect('detail',post_id=post.pk)
+    else:
+        form =CommmentForm()
+        front_end_stuff={'form':form}
+    return render(request,"add_comment.html",front_end_stuff)
 
 
 

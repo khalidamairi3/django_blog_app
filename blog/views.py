@@ -28,6 +28,7 @@ def createpost(request):
         form =PostForm()
         front_end_stuff={'form':form}
     return render(request,"post-edit.html",front_end_stuff)
+    
 @login_required
 def edit(request,post_id):
     post=get_object_or_404(Post,pk=post_id)
@@ -42,16 +43,23 @@ def edit(request,post_id):
         form =PostForm(instance=post)
         front_end_stuff={'form':form}
     return render(request,"post-edit.html",front_end_stuff)
+
+
 @login_required
 def post_draft_list(request):
     posts=Post.objects.filter(pub_date__isnull=True).order_by('-created_date')
     front_end_stuff={"posts":posts}
     return render(request,"post-draft-list.html",front_end_stuff)
+
+
 @login_required
 def publish_post(request,pk):
     post=get_object_or_404(Post,pk=pk)
     post.publish()
     return redirect('postlist')
+
+
+
 @login_required
 def add_comment(request,pk):
     post=get_object_or_404(Post,pk=pk)

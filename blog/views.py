@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Post
+from .models import Post,Comment
 from django.utils import timezone
 from .forms import PostForm,CommmentForm
 from django.contrib.auth.decorators import login_required
@@ -28,7 +28,7 @@ def createpost(request):
         form =PostForm()
         front_end_stuff={'form':form}
     return render(request,"post-edit.html",front_end_stuff)
-    
+
 @login_required
 def edit(request,post_id):
     post=get_object_or_404(Post,pk=post_id)
@@ -76,6 +76,9 @@ def add_comment(request,pk):
         front_end_stuff={'form':form}
     return render(request,"add_comment.html",front_end_stuff)
 
-
+def comment_remove(request,pk):
+    comment=get_object_or_404(Comment,pk=pk)
+    comment.delete()
+    return redirect('detail',post_id=comment.post.pk)
 
 # Create your views here.

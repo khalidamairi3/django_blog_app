@@ -82,3 +82,8 @@ def comment_remove(request,pk):
     return redirect('detail',post_id=comment.post.pk)
 
 # Create your views here.
+@login_required
+def approve_comment(request,pk):
+    comment=get_object_or_404(Comment,pk=pk)
+    comment.approve()
+    return redirect('detail',post_id=comment.post.pk)

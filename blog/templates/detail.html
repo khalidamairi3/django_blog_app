@@ -25,16 +25,19 @@
           <button class="btn btn-secondary"> <a href="{% url 'add_comment' pk=post.id %}">Add Comment </a></button>
           {% endif %}
           {% for comment in post.comments.all %}
-          
-            <div class="comment"></div>
+            {%if user.is_authenticated or comment.approved %}
+            <div class="comment">
             
               <p class="date"> {{ comment.created_date}}</p>
+              {% if not comment.approved and user.is_superuser %}
+              <a href="{% url 'approve_comment' pk=comment.pk %}"> <i class="fas fa-check"></i></a>
               <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash-alt"></i></a>
+              {% endif %}
               <strong>{{comment.author}}</strong>
               <p>{{comment.text|truncatechars:50}}</p>
 
               </div>
-
+              {% endif %}
               {% empty %}
               <p>No comments </p>
 

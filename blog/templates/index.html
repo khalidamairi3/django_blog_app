@@ -12,22 +12,7 @@
             </div>
           </div>
           <hr>
-          {% if user.is_authenticated %}
-            <button class="btn btn-secondary"> <a href="{% url 'add_comment' pk=post.id %}">Add Comment </a></button>
-            {% endif %}
-            {% for comment in post.comments.all %}
-            <div class="comment"></div>
-              <p class="date"> {{ comment.created_date}}</p>
-              <strong>{{comment.author}}</strong>
-              <p>{{comment.text|truncatechars:50}}</p>
-
-              </div>
-
-              {% empty %}
-              <p>No comments </p>
-
-
-            {% endfor %}
+         <a href="{% url 'detail' post.id%}"> Comments: {{ post.approved_comments.count }}</a>
           </div>
           {% endfor %}
       {% endif %}

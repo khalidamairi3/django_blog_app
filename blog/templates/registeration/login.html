@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 {% block content %}
 <h1>Login</h1>
-    <form class="post-form-blog" action=""  method="post">
+    <form class="login-form" action=""  method="post">
       {% csrf_token %}
       {{form.as_p}}
 

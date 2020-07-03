@@ -7,15 +7,15 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 
 
-def postlist(request):
+def post_list(request):
     posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
     front_end_stuff = {"posts": posts}
-    return render(request, "index.html", front_end_stuff)
+    return render(request, "post-list.html", front_end_stuff)
 
 
-def detail(request, post_id):
+def detail(request, pk):
     try:
-        post = Post.objects.get(pk=post_id)
+        post = Post.objects.get(pk=pk)
         front_end_stuff = {"post": post}
     except Exception as e:
         raise
@@ -23,14 +23,14 @@ def detail(request, post_id):
 
 
 @login_required
-def createpost(request):
+def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('detail', post_id=post.pk)
+            return redirect('detail', pk=post.pk)
     else:
         form = PostForm()
         front_end_stuff = {'form': form}
@@ -38,15 +38,15 @@ def createpost(request):
 
 
 @login_required
-def edit(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def edit_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('detail', post_id=post.pk)
+            return redirect('detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
         front_end_stuff = {'form': form}
@@ -64,7 +64,7 @@ def post_draft_list(request):
 def publish_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
-    return redirect('postlist')
+    return redirect('post_list')
 
 
 @login_required
@@ -77,7 +77,7 @@ def add_comment(request, pk):
             comment.author = request.user
             comment.post = post
             comment.save()
-            return redirect('detail', post_id=post.pk)
+            return redirect('detail', pk=post.pk)
     else:
         form = CommmentForm()
         front_end_stuff = {'form': form}
@@ -88,7 +88,7 @@ def add_comment(request, pk):
 def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
-    return redirect('detail', post_id=comment.post.pk)
+    return redirect('detail', pk=comment.post.pk)
 
 
 # Create your views here.
@@ -96,14 +96,14 @@ def comment_remove(request, pk):
 def approve_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
-    return redirect('detail', post_id=comment.post.pk)
+    return redirect('detail', pk=comment.post.pk)
 
 
 @login_required
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    return redirect("postlist")
+    return redirect("post_list")
 
 
 def signup(request):

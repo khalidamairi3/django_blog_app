@@ -4,10 +4,12 @@
   padding: 20px 20px 20px 20px;
   margin-bottom: 20px;
 }
-.post-form-blog{
+.post-form-blog, login-form{
 
   width: 70%;
 }
+
+
 .post-form-blog textarea{
   width: 100%;
 

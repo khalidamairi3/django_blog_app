@@ -14,7 +14,7 @@
   <body>
     <div class="page-header">
      {% if user.is_authenticated %}
-       <a class="top-right" href=" {% url 'createpost' %}">  <i class="fas fa-plus"></i> </a>
+       <a class="top-right" href=" {% url 'create_post' %}">  <i class="fas fa-plus"></i> </a>
        <a class="top-right" href=" {% url 'post-draft-list' %}">  <i class="fab fa-firstdraft"></i> </a>
        <p class="top-right">Hello, {{ user.username }} <a  href=" {% url 'logout' %}"> (Logout) </a></p>
        {% else %}
@@ -22,7 +22,7 @@
 
 
       {% endif %}
-      <h1><a href="{% url 'postlist' %}"> My Blog</a></h1>
+      <h1><a href="{% url 'post_list' %}"> My Blog</a></h1>
     </div>
     <div class="content container">
       {% block content %}

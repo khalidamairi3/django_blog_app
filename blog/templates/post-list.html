@@ -12,6 +12,7 @@
               <p>{{post.text| markdown | safe}}</p>
             </div>
           </div>
+
           <hr>
          <a href="{% url 'detail' post.id%}"> Comments: {{ post.approved_comments.count }}</a>
           </div>
